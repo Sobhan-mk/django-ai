@@ -35,11 +35,44 @@ class UserChangeForm(forms.ModelForm):
 
     def clean_password(self):
         return self.initial['password']
-
-
-
+    
         
+class UserRegisterForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    email = forms.EmailField()
+    phone = forms.IntegerField()
 
+    password_1 = forms.CharField()
+    password_2 = forms.CharField()
 
-    
-    
+    def clean_username(self):
+        user = self.cleaned_data['username']
+
+        if User.objects.filter(username=user).exists():
+            raise forms.ValidationError('username is already exist.')
+        else:
+            return user
+        
+    def clean_email(self):
+        email = self.cleaned_data['email']
+
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('email is already exist')
+        else:
+            return email
+        
+    def clean_password_2(self):
+        pass_1 = self.cleaned_data['password_1']
+        pass_2 = self.cleaned_data['password_2']
+
+        if pass_1 != pass_2:
+            raise forms.ValidationError('passwords dont match')
+        
+        elif len(pass_2) < 10:
+            raise forms.ValidationError('password is too short')
+        
+        elif not any (i.isupper() for i in pass_2):
+            raise forms.ValidationError('pleas entre an upper alphabet in your password')
+        
+        else:
+            return pass_1

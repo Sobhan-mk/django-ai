@@ -10,13 +10,14 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('plz enter email')
         
-        if not email:
+        if not phone:
             raise ValueError('plz enter phone')
+        
         
         user = self.model(username=username, email=self.normalize_email(email), phone=phone)
         user.set_password(password)
         user.save(using=self._db)
-        
+
         return user
     
     def create_superuser(self, username, email, phone, password):

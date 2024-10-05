@@ -5,7 +5,10 @@
     </title>
 </head>
 <body>
-    <h1>
-        register page
-    </h1>
+    <form method="post">
+        {% csrf_token %}
+
+        {{form.as_p}}
+        <button type="submit">register</button>
+    </form>
 </body>
