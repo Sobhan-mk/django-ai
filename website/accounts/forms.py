@@ -76,3 +76,8 @@ class UserRegisterForm(forms.Form):
         
         else:
             return pass_1
+
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField()

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import UserCreateForm, UserRegisterForm
+from .forms import *
 from .models import UserManager
 from .models import User
+from django.contrib.auth import authenticate, login as dj_login
 
 
 def register(request):
@@ -23,4 +24,23 @@ def register(request):
 
 
 def login(request):
-    return render(request, 'accounts/login.html')
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            user = authenticate(request, username=data['username'], password=data['password'])
+           
+            if user is not None:
+                dj_login(request, user)
+                return redirect('home:home')
+            
+            else:
+                pass
+    else:
+        form = UserLoginForm()
+
+    context = {'form' : form}
+
+    return render(request, 'accounts/login.html', context)
