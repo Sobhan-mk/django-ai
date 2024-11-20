@@ -3,7 +3,7 @@ from .forms import *
 from .models import UserManager
 from .models import User
 from django.contrib.auth import authenticate, login as dj_login
-
+from django.contrib import messages
 
 def register(request):
 
@@ -12,7 +12,7 @@ def register(request):
 
         if form.is_valid():
             data = form.cleaned_data
-            User.objects.create_user(username=data['username'], email=data['email'], phone=data['phone'], password=data['password_2'])
+            User.objects.create_user(username=data['username'], email=data['email'], password=data['password_2'])
 
             return redirect('home:home')
         
@@ -38,6 +38,7 @@ def login(request):
             
             else:
                 pass
+                
     else:
         form = UserLoginForm()
 

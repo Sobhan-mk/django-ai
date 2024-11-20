@@ -1,6 +1,7 @@
 from django import forms
 from .models import User
 from django.contrib.auth.forms import ReadOnlyPasswordHashField as ROPHF
+from django.contrib.auth.hashers import check_password
 
 
 class UserCreateForm(forms.ModelForm):
@@ -9,7 +10,7 @@ class UserCreateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'phone']
+        fields = ['username', 'email']
 
     def clean_pass_2(self):
         data = self.cleaned_data
@@ -31,7 +32,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'phone']
+        fields = ['username', 'email']
 
     def clean_password(self):
         return self.initial['password']
@@ -40,7 +41,6 @@ class UserChangeForm(forms.ModelForm):
 class UserRegisterForm(forms.Form):
     username = forms.CharField(max_length=50)
     email = forms.EmailField()
-    phone = forms.IntegerField()
 
     password_1 = forms.CharField()
     password_2 = forms.CharField()
@@ -68,7 +68,7 @@ class UserRegisterForm(forms.Form):
         if pass_1 != pass_2:
             raise forms.ValidationError('passwords dont match')
         
-        elif len(pass_2) < 10:
+        elif len(pass_2) < 5:
             raise forms.ValidationError('password is too short')
         
         elif not any (i.isupper() for i in pass_2):
@@ -81,3 +81,19 @@ class UserRegisterForm(forms.Form):
 class UserLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField()
+
+    def clean_username(self):
+        user = self.cleaned_data['username']
+
+        if not User.objects.filter(username=user).exists():
+            raise forms.ValidationError('username not found.')
+        else:
+            return user
+    
+    def clean_password(self):
+        user = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        if not User.objects.get(username=user).check_password(password):
+            raise forms.ValidationError('password is incorrect')
+        else:
+            return password

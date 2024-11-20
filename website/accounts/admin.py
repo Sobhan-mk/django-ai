@@ -8,7 +8,7 @@ class UserAdmin(userA):
     form = UserChangeForm
     add_form = UserCreateForm
 
-    list_display = ('username', 'email', 'phone')
+    list_display = ('username', 'email')
     list_filter = ('username', 'is_active')
 
     fieldsets = (
@@ -18,7 +18,7 @@ class UserAdmin(userA):
     )
 
     add_fieldsets = (
-        (None, {'fields' : ('username', 'email', 'phone', 'pass_1', 'pass_2')})
+        (None, {'fields' : ('username', 'email', 'pass_1', 'pass_2')})
     )
 
     search_fields = ('username', )

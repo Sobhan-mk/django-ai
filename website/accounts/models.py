@@ -3,18 +3,15 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, email, phone, password):
+    def create_user(self, username, email, password):
         if not username:
             raise ValueError('plz enter username')
         
         if not email:
             raise ValueError('plz enter email')
         
-        if not phone:
-            raise ValueError('plz enter phone')
         
-        
-        user = self.model(username=username, email=self.normalize_email(email), phone=phone)
+        user = self.model(username=username, email=self.normalize_email(email))
         user.set_password(password)
         user.save(using=self._db)
 
@@ -34,14 +31,13 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
-    phone = models.IntegerField(null=True)
     
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = "username"
 
-    REQUIRED_FIELDS = ['email', 'phone']
+    REQUIRED_FIELDS = ['email']
 
     objects = UserManager()
 
