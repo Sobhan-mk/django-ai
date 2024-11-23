@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import *
-from .models import UserManager
-from .models import User
-from django.contrib.auth import authenticate, login as dj_login
+from .models import User, Profile
+from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
 
 def register(request):
@@ -45,3 +44,37 @@ def login(request):
     context = {'form' : form}
 
     return render(request, 'accounts/login.html', context)
+
+def profile(request):
+    if request.method == 'POST':
+
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST,
+                                          request.FILES,
+                                          instance=request.user.profile)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'profile updated secessfully!')
+
+            return redirect('home:home')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+                                          
+    profile = Profile.objects.get(user_id=request.user.id)
+
+    context = {
+        'profile' : profile,
+        'user_form' : user_form, 
+        'profile_form' : profile_form
+    }
+
+    return render(request, 'accounts/profile.html', context)
+
+
+def signout(request):
+    logout(request)
+    messages.success(request, 'logout was secessfully!')
+    return redirect('home:home')

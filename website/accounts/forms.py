@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Profile
 from django.contrib.auth.forms import ReadOnlyPasswordHashField as ROPHF
 from django.contrib.auth.hashers import check_password
 
@@ -97,3 +97,15 @@ class UserLoginForm(forms.Form):
             raise forms.ValidationError('password is incorrect')
         else:
             return password
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']

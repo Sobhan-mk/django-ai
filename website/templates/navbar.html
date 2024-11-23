@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-white" style="background-color : gainsboro">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home:home' %}">home</a>
+          </li>
+          {% if user.is_authenticated%}
+
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:profile' %}">profile</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:logout' %}">logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:register' %}">register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:login' %}">login</a>
+          </li>
+          {% endif %}
+      </ul>
+    </div>
+  </nav>
