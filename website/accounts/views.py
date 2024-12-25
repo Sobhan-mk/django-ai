@@ -3,6 +3,7 @@ from .forms import *
 from .models import User, Profile
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
 
 def register(request):
 
@@ -13,6 +14,7 @@ def register(request):
             data = form.cleaned_data
             User.objects.create_user(username=data['username'], email=data['email'], password=data['password_2'])
 
+            messages.success(request, 'registration was sucessfully!', 'success')
             return redirect('home:home')
         
     else:
@@ -33,6 +35,8 @@ def login(request):
            
             if user is not None:
                 dj_login(request, user)
+
+                messages.success(request, 'login was sucessfully!', 'success')
                 return redirect('home:home')
             
             else:
@@ -56,7 +60,7 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'profile updated secessfully!')
+            messages.success(request, 'profile updated secessfully!', 'success')
 
             return redirect('home:home')
     else:
@@ -78,3 +82,16 @@ def signout(request):
     logout(request)
     messages.success(request, 'logout was secessfully!')
     return redirect('home:home')
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'password changed succesfully!', 'success')
+            return redirect('home:home')
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'accounts/change_password.html', {'form' : form})
