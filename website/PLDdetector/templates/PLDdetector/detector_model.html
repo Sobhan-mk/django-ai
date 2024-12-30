@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    plant leaf deseases detector
+{% endblock %}
+
+{% block body %}
+    <h1 style = "color: rgba(41,220,130,0.99)">plant leaf deseases detector</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">send image</button>
+    </form>
+{% endblock %}

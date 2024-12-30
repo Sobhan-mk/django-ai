@@ -3,6 +3,7 @@
     register
 {% endblock %}
 {% block body %}
+    <h1 style="color : rgba(41,220,130,0.99)">register</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.username}}<br><br>

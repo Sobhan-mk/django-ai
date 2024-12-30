@@ -9,14 +9,17 @@
           {% if user.is_authenticated%}
 
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'accounts:profile' %}">profile</a>
+              <a class="nav-link" style="background-color: rgba(41,220,130,0.99); border-radius: 10px; color:#4e4e4e" href="{% url 'accounts:profile' %}">profile</a>
           </li>
           <li class="nav-but">
               <a class="nav-link" href="{% url 'accounts:logout' %}">logout</a>
           </li>
+          <li class="nav-but">
+              <a class="nav-link" href="{% url 'PLDdetector:detector_model' %}">plant leaf deseases detector</a>
+          </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" style="background-color: rgba(41,220,130,0.99); border-radius: 10px" href="{% url 'accounts:login' %}">login</a>
+            <a class="nav-link" style="background-color: rgba(41,220,130,0.99); border-radius: 10px; color:#4e4e4e" href="{% url 'accounts:login' %}">login</a>
           </li>
           {% endif %}
       </ul>
