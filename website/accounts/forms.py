@@ -39,11 +39,11 @@ class UserChangeForm(forms.ModelForm):
     
         
 class UserRegisterForm(forms.Form):
-    username = forms.CharField(max_length=50)
-    email = forms.EmailField()
+    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
 
-    password_1 = forms.CharField()
-    password_2 = forms.CharField()
+    password_1 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}))
+    password_2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Repeat password'}))
 
     def clean_username(self):
         user = self.cleaned_data['username']
@@ -79,24 +79,8 @@ class UserRegisterForm(forms.Form):
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField()
-
-    def clean_username(self):
-        user = self.cleaned_data['username']
-
-        if not User.objects.filter(username=user).exists():
-            raise forms.ValidationError('username not found.')
-        else:
-            return user
-    
-    def clean_password(self):
-        user = self.cleaned_data['username']
-        password = self.cleaned_data['password']
-        if not User.objects.get(username=user).check_password(password):
-            raise forms.ValidationError('password is incorrect')
-        else:
-            return password
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}))
 
 
 class UserUpdateForm(forms.ModelForm):

@@ -5,7 +5,11 @@
 {% block body %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}<br>
+        {{ form.username}}<br><br>
+        {{ form.email}}<br><br>
+        {{ form.password_1}}<br><br>
+        {{ form.password_2}}<br><br>
+
         <button type="submit">register</button>
     </form>
 

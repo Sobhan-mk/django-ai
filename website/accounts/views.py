@@ -25,27 +25,31 @@ def register(request):
 
 
 def login(request):
+    error_message = None
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
 
         if form.is_valid():
             data = form.cleaned_data
-
-            user = authenticate(request, username=data['username'], password=data['password'])
            
-            if user is not None:
-                dj_login(request, user)
+            if not User.objects.filter(username=data['username']).exists():
+                error_message = 'user not found'
 
-                messages.success(request, 'login was sucessfully!', 'success')
-                return redirect('home:home')
-            
             else:
-                pass
+                user = authenticate(request, username=data['username'], password=data['password'])
+                if user is not None:
+                    dj_login(request, user)
+
+                    messages.success(request, 'login was sucessfully!', 'success')
+                    
+                    return redirect('home:home')
+                else:
+                    error_message = 'invalid username or password'
                 
     else:
         form = UserLoginForm()
 
-    context = {'form' : form}
+    context = {'form': form, 'error_message': error_message}
 
     return render(request, 'accounts/login.html', context)
 
