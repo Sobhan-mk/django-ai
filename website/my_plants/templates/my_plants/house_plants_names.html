@@ -2,9 +2,13 @@
 
 {% block title %}house plants names{% endblock %}
 {% block body %}
-    <h1>
+    <h1 style="color: rgba(41,220,130,0.99)">
     house plant spieces names
     </h1>
+    <form method="get" action="{% url 'my_plants:house_plants_names' %}">
+        {% csrf_token %}
+        {{ form.query }}
+    </form><br>
         {% for plant in names %}
             <a href="{% url 'my_plants:plant_detail' plant.id %}">{{ plant.persian_name }}</a><br><br>
         {% endfor %}

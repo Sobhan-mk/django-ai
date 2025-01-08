@@ -4,6 +4,8 @@ from .models import User, Profile
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
+from my_plants.models import Plants
+
 
 def register(request):
 
@@ -53,6 +55,7 @@ def login(request):
 
     return render(request, 'accounts/login.html', context)
 
+
 def profile(request):
     if request.method == 'POST':
 
@@ -70,13 +73,19 @@ def profile(request):
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
-                                          
+
     profile = Profile.objects.get(user_id=request.user.id)
+
+
+    user_plants = profile.users_plants.all()
+
+
 
     context = {
         'profile' : profile,
         'user_form' : user_form, 
-        'profile_form' : profile_form
+        'profile_form' : profile_form,
+        'user_plants' : user_plants
     }
 
     return render(request, 'accounts/profile.html', context)

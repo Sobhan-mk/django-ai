@@ -13,6 +13,15 @@
         {{ profile_form.as_p }}
 
         <button type="submit">update</button>
-    </form>
-    <a href="http://127.0.0.1:8000/accounts/change_password/">change_password</a>
+    </form><br>
+
+
+    <a href="http://127.0.0.1:8000/accounts/change_password/">change_password</a><br><br>
+
+
+    <h2>گیاهان خانگی من</h2>
+    {% for plant in user_plants %}
+            <li><a href="{% url 'my_plants:plant_detail' plant.id %}">{{ plant.name }} : {{ plant.persian_name }}</a></li>
+    {% endfor %}
+
 {% endblock %}
