@@ -1,5 +1,4 @@
-<link rel="stylesheet" type="text/css" href="navbar.css">
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color : #4e4e4e">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="collapse navbar-collapse" id="navbarNav">
     <a class="navbar-brand end" style="color: rgba(41,220,130,0.99)">happy plant</a>
       <ul class="navbar-nav">
@@ -9,7 +8,7 @@
           {% if user.is_authenticated%}
 
           <li class="nav-item">
-              <a class="nav-link" style="background-color: rgba(41,220,130,0.99); border-radius: 10px; color:#4e4e4e" href="{% url 'accounts:profile' %}">profile</a>
+              <a class="nav-link"  href="{% url 'accounts:profile' %}">profile</a>
           </li>
           <li class="nav-but">
               <a class="nav-link" href="{% url 'accounts:logout' %}">logout</a>
@@ -19,9 +18,12 @@
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" style="background-color: rgba(41,220,130,0.99); border-radius: 10px; color:#4e4e4e" href="{% url 'accounts:login' %}">login</a>
+            <a class="nav-link" href="{% url 'accounts:login' %}">login</a>
           </li>
           {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'my_plants:house_plants_names' %}">house plant name list</a>
+          </li>
       </ul>
     </div>
   </nav>

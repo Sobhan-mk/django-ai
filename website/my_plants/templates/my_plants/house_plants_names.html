@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}house plants names{% endblock %}
+{% block body %}
+    <h1>
+    house plant spieces names
+    </h1>
+        {% for plant in names %}
+            <a href="{% url 'my_plants:plant_detail' plant.id %}">{{ plant.persian_name }}</a><br><br>
+        {% endfor %}
+
+
+{% endblock %}
