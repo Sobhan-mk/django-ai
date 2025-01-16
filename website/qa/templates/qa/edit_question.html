@@ -16,6 +16,8 @@
             {% csrf_token %}
             <p style="color: white">سرتیتر</p>
             {{ form.title }}<br><br>
+            <p style="color: white">سوال شما در چه موردی است؟</p>
+            {{ form.topic }}
             <p style="color: white">جزئیات سوال</p>
             {{ form.detail }}
 

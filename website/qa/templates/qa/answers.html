@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}
+    answers
+{% endblock %}
+
+{% block body%}
+    {% for answer in answers %}
+        <p>{{ answer.detail }}</p>
+    {% endfor %}
+{% endblock %}

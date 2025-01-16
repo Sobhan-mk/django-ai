@@ -5,6 +5,7 @@ from .forms import SearchPlantNames
 from accounts.models import Profile
 from django.contrib import messages
 
+
 def house_plants_names(request):
     plant_names = Plants.objects.all()
     form = SearchPlantNames()
