@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from my_plants.models import Plants
 
+
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password):
         if not username:
@@ -56,8 +57,7 @@ class User(AbstractBaseUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     users_plants = models.ManyToManyField(Plants, blank=True)
 

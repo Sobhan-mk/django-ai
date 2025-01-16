@@ -2,7 +2,7 @@ from django import forms
 from .models import User, Profile
 from django.contrib.auth.forms import ReadOnlyPasswordHashField as ROPHF
 from django.contrib.auth.hashers import check_password
-
+from django.contrib.auth.forms import PasswordChangeForm
 
 class UserCreateForm(forms.ModelForm):
     pass_1 = forms.CharField(widget=forms.PasswordInput)
@@ -39,11 +39,11 @@ class UserChangeForm(forms.ModelForm):
     
         
 class UserRegisterForm(forms.Form):
-    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'نام کاربری'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'ایمیل'}))
 
-    password_1 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}))
-    password_2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Repeat password'}))
+    password_1 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'رمز عبور'}))
+    password_2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'تکرار رمز عبور'}))
 
     def clean_username(self):
         user = self.cleaned_data['username']
@@ -79,8 +79,8 @@ class UserRegisterForm(forms.Form):
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'نام کاربری'}))
+    password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'رمز عبور'}))
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -92,4 +92,6 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = []
+
+

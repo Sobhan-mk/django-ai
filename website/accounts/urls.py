@@ -11,6 +11,3 @@ urlpatterns = [
     path('logout/', views.signout, name='logout'), 
     path('change_password/', views.change_password, name='change_password')
 ] 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

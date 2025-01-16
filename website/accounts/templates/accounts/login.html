@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
-
-{% block title %}login{% endblock %}
+{% load static %}
+<html>
+<head>
+    <link href="{% static 'css/login.css' %}">
+    {% block title %}login{% endblock %}
+</head>
+<body>
 {% block body %}
-    <h1 style="color : rgba(41,220,130,0.99)">login</h1>
-    <form action="" method="post">
+    <h1 style="color : rgba(255,255,255,0.99)">ورود</h1>
+    <div class="container" style="display: flex; justify-content: center; align-items: center">
+
+    <form action="" method="post" style="border: 1px solid white; padding: 50px; border-radius: 10px; margin: 0; width: 300px; background-color: #595B5DC9; border-radius: 35px">
         {% csrf_token %}
         {{ form.username }}
         <br><br>
         {{ form.password }}
         <br><br>
-        <button type="submit">login</button>
+        <button type="submit" style="background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399); border-radius: 20px;height: 40px; width: 190px; border: 1px lightgray solid;  color: white">ورود</button>
+        <a href="{% url 'accounts:register' %}" style="justify-content: center; display: flex; color: #ffffff;">ساخت حساب کاربری</a>
     </form>
-    <br>
+    </div><br><br><br><br><br><br><br><br><br>
+
+
     {% if error_message %} <p>{{ error_message }}</p> {% endif %}
-    <a href="http://127.0.0.1:8000/accounts/register/">sign up</a>
+
 {% endblock %}
+</body>
+</html>
+

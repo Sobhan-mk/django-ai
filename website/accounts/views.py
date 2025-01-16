@@ -4,7 +4,6 @@ from .models import User, Profile
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
-from my_plants.models import Plants
 
 
 def register(request):
@@ -16,7 +15,7 @@ def register(request):
             data = form.cleaned_data
             User.objects.create_user(username=data['username'], email=data['email'], password=data['password_2'])
 
-            messages.success(request, 'registration was sucessfully!', 'success')
+            messages.success(request, 'حساب کاربری شما ساخته شد', 'success')
             return redirect('home:home')
         
     else:
@@ -42,11 +41,11 @@ def login(request):
                 if user is not None:
                     dj_login(request, user)
 
-                    messages.success(request, 'login was sucessfully!', 'success')
+                    messages.success(request, 'ورود موفقیت آمیر بود', 'success')
                     
                     return redirect('home:home')
                 else:
-                    error_message = 'invalid username or password'
+                    error_message = 'نام کاربری یا روز عبور اشتباه است'
                 
     else:
         form = UserLoginForm()
@@ -67,7 +66,7 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'profile updated secessfully!', 'success')
+            messages.success(request, 'پروفایل بروز رسانی شد', 'success')
 
             return redirect('home:home')
     else:
@@ -79,13 +78,16 @@ def profile(request):
 
     user_plants = profile.users_plants.all()
 
+    user_questions = request.user.questions.all()
+
 
 
     context = {
         'profile' : profile,
         'user_form' : user_form, 
         'profile_form' : profile_form,
-        'user_plants' : user_plants
+        'user_plants' : user_plants,
+        'user_questions' : user_questions
     }
 
     return render(request, 'accounts/profile.html', context)
@@ -93,7 +95,7 @@ def profile(request):
 
 def signout(request):
     logout(request)
-    messages.success(request, 'logout was secessfully!')
+    messages.success(request, 'شما خارج شدید')
     return redirect('home:home')
 
 def change_password(request):
@@ -102,9 +104,10 @@ def change_password(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'password changed succesfully!', 'success')
+            messages.success(request, 'رمز عبور با موفقیت تغییر کرد', 'success')
             return redirect('home:home')
     else:
         form = PasswordChangeForm(user=request.user)
 
     return render(request, 'accounts/change_password.html', {'form' : form})
+

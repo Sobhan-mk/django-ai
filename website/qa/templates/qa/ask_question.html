@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    my_questions
+{% endblock %}
+
+{% block body %}
+    <div style="background: linear-gradient(to right, rgb(43,48,52), rgba(89,91,93,0.79));">
+        <ul><h1 style="color: white">سوال بپرسید</h1>
+        <ul><p style="color: white">اگه سوالی در مورد نگهداری یا ویژگی ها گیاهان یا ... داشتی میتونی اینجا از بقیه بپرسی تا بهت کمک کنن.</p></ul>
+</ul><br>
+    </div><br>
+
+    <div class="container" style="border: 1px solid white; border-radius: 35px; margin: 0; width: 400px; background-color: #595B5DC9; padding: 30px; display: flex; justify-content: center; margin: auto;">
+        <form method="post">
+
+            {% csrf_token %}
+            <p style="color: white">سرتیتر</p>
+            {{ form.title }}<br><br>
+            <p style="color: white">جزئیات سوال</p>
+            {{ form.detail }}
+
+
+            <button type="submit" style="background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399); color: white; border: 1px lightgray solid; border-radius: 20px; width: 320px; height:40px">ثبت سوال</button>
+        </form>
+    </div><br>
+{% endblock %}

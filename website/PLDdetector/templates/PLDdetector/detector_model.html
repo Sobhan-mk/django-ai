@@ -1,16 +1,84 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     plant leaf deseases detector
 {% endblock %}
 
 {% block body %}
-    <h1 style = "color: rgba(41,220,130,0.99)">plant leaf deseases detector</h1>
+    <ul>
+        <h1 style = "color: rgb(255,255,255)">تشخیص مشکل گیاهان از روی برگ</h1><br>
 
-    <form method="post" enctype="multipart/form-data">
+    </ul>
+    <div class="container" style="border: 1px white solid; border-radius: 35px; background: linear-gradient(to right, rgba(43, 48, 52, 0.5), rgba(84, 243, 163, 0.5)), url({% static 'images/house_plant_home.jpg' %}); ">
+        <form method="post" enctype="multipart/form-data"><br>
+        <h4 style="color: white">تصویر خود را وارد کنید. </h4><br>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">send image</button>
-    </form>
-    <p>{{ prediction }}</p>
+        {{ form.as_p }}<br>
+        <button type="submit" style="display: flex; justify-content: center; background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399); border-radius: 30px; width:300px; height: 40px; color: white; margin: auto; border: 1px lightgray solid; align-items: center">ارسال تصویر</button><br>
+    </form><br>
+    </div><br>
+    <ul>
+    <h2 style="color: #ffffff"> توضیحات</h2>
+    </ul>
+
+
+
+
+    {% if image_url and image_shape%}
+<div class="container" style="border: 1px solid white; border-radius: 35px; display: flex; justify-content: flex-end; margin: auto; align-items: center; top: 10px; left: 10px; width: 700px; height: 290px; background-color: rgba(89,91,93,0.79)">
+    <img src="{{ image_url }}" style="border-radius: 30px; border: 1px solid white; max-width: 100%; max-height: 100%;">
+</div>
+
+
+    {% elif image_shape == False %}
+        <ul><ul>
+            <p style="color: red">تصویر شما باید مربع یا به نسبت 1:1 باشد.</p>
+        </ul>
+
+        </ul>
+    {% else %}
+        <ul><ul><p style="color: white">ابتدا تصویری ارسال کنید تا اطلاعات مربوطه رو مشاهده کنید.</p>
+        </ul>
+        </ul>
+
+    {% endif %}
+
+    <p>{{ prediction }}</p><br>
+
+    <div class="container" style="border-radius: 35px; border: 1px white solid; display: flex; justify-content: center; margin: auto; align-items: center; width:1200px; height: 200px; background-color: #595B5DC9">
+        <div class="container">    <p style="color: white">این یک مدل ماشین لرنینک است که حدودا توان شناسایی مشکلات 10 تا 15 گیاه رو داراست. این گیاهان شامل گیاهان بسیار معول یا محصولات کشاورزی است و این محدودست به دلیل کمبود دیتا برای آموزش مدل و محدودیت های زمانی و سخت افزاری در فرآیند آموزش مدل است. امیدوارم که در نسخه های بعدی بتونم این کمبود هارو برطرف کرده و مدلی قویتر در اختیار شما قرار بدم..</p>
+        </div><br>
+
+    <div>
+    <ul><p style="color: white">شما میتونید با مراجمه به صفحه درباره مدل های تسخیص اطلاعات بسیار کامل تری در رابطه با نوع مدل، دیتای استفاده شده در اون، بنچمارک ها و عملکرد مدل روی دیتا های جدید، سورس کد ترین مدل و ... رو مشاهده بکنید.</p>
+    </ul>
+    </div><br><br>
+    </div><br>
+
+    <div style="background: linear-gradient(to right, #2B3034FF, #595B5DC9);">
+        <ul>
+    <h3 style="color: white">عکس مناسب برای این مدل</h3><br>
+    <ul>
+    <p style="color: white">بهترین تصویر برای این مدل تصویر در قالب مربع با وضوح بالا و با دقت رنگی مناسب است که تنها برگ گیاه رو به شکل مقبولی پوشش بده. سعی کنید تو تصویرتون چیزی جز برگ آسیب دیده نباشه!</p><br>
+        <p style="color: white"> در ادامه چند مثال از تصاویر مناسب برای این مدل آوردم تا بتونید بهترین عملکرد رو از مدل داشته باشید.</p>
+    </ul>
+    </ul>
+        <div class="container" style="width: 1200px; align-items: center;">
+        {% for file in random_samples %}
+            <img src="{% static file %}" style="width: 200px;  border-radius: 20px;">
+        {% endfor %}
+    </div><br>
+    </div><br><br>
+
+    <div class="container">
+        <a href="#" style="color:white; display: flex; justify-content: center; align-items: center; margin: auto;  background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399); border-radius: 30px; width: 400px; height: 40px; border: 1px lightgray solid">درباره مدل های تشخیص</a>
+
+    </div><br><br>
+
+
+
+    
+
+
 {% endblock %}

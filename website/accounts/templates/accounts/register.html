@@ -4,14 +4,15 @@
 {% endblock %}
 {% block body %}
     <h1 style="color : rgba(41,220,130,0.99)">register</h1>
-    <form method="post">
+    <form method="post" style="border: 2px solid rgba(41,220,130,0.99); padding: 10px; border-radius: 10px; margin: 0; width: 218px;">
         {% csrf_token %}
         {{ form.username}}<br><br>
         {{ form.email}}<br><br>
         {{ form.password_1}}<br><br>
         {{ form.password_2}}<br><br>
 
-        <button type="submit">register</button>
+        <button type="submit" style="background-color: rgba(41,220,130,0.99); border: none; width: 188px; height: 30px; border-radius: 10px; color: white">ساخت حساب کاربری</button>
+        <a href="{% url 'accounts:login' %}" style="justify-content: center; display: flex; color: black;">ورود</a>
     </form>
 
 

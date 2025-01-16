@@ -1,11 +1,88 @@
 {% extends 'base.html' %}
 {% load static %}
+<head>
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+</head>
 {% block title %}
-    home
+    خانه
 {% endblock %}
 {% block body %}
-    <h1 style="color : rgba(41,220,130,0.99)">
-        home
-    </h1>
-    
+    <div style="background: linear-gradient(to right, rgb(43,48,52), rgba(89,91,93,0.79));">
+    <br>
+        <ul>
+            <h1 style="color:white; font-size: 50px">برای گیاهت زندگی شاد بساز</h1><br>
+            <ul>
+                <p style="color: white; font-size: 30px">گیاهان رو بهتر بشناس</p>
+                <p style="color: white; font-size: 30px">از گیاهت بهتر نگهداری کن</p>
+                <p style="color: white; font-size: 30px">مشکلشو تشخیص بده</p>
+                <p style="color: white; font-size: 30px">حلش کن</p>
+            </ul>
+        </ul><br>
+    </div><br><br>
+
+<ul><h1 style="color: rgb(255,255,255)">تشخیص تصاویر گیاهان</h1><br></ul>
+<div style="display: flex; position: relative; justify-content: center; width: 800px; height: 300px; margin: auto; border-radius: 35px; border:1px solid white; background-color: #595B5DC9  ">
+<p style="color: white; padding: 30px">در این سایت دو مدل یادگیری ماشین قرار داده شده است. اولی برای شناسایی گیاهان آسیب دیده و نوع مشکل آنها ساخته شده است. اما مدل دوم برای شناسسایی گونه گیاهان خانکی ساخته شده که شما میتونید با استفاده از اون نوع گیاهتون رو مشخص کرده و اطلاعاتی در مورد اون مشاهده کنید</p><br>
+<p style="color: white; padding: 30px">توجه داشته باشید که قبل از استافاده از این محتوا نیازمند ورود با سایت یا ساخت حساب کاربری هستید.</p>
+
+<a style="background: linear-gradient(to right, rgba(84, 243, 163, 0.99), rgba(52, 160, 106, 0.99));
+ border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+   width: 385px;
+    height: 50px;
+     display: flex;
+      justify-content: center;
+       align-items: center;
+        color: white; position: absolute; top: 235px; left:400px" href="{% url pld_detector_url %}">
+    تشخیص گیاهان آسیب دیده
+</a>
+<a style="border: 2px solid rgba(84, 243, 163, 0.99);
+ border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+   width: 385px;
+    height: 50px;
+     display: flex;
+      justify-content: center;
+       align-items: center;
+        color: white;
+         text-decoration: none; position: absolute; top: 235px; left:15px " href="#">
+    تشخیص گونه گیاهان خانگی
+</a>
+
+    </div><br>
+    <ul><h1 style="font-size: 50px; color: rgb(255,255,255)">درباره من</h1></ul>
+
+    <div style="display: flex; position: relative;   width: 1000px; height: 300px; border-radius: 35px; margin: auto; justify-content: center">
+
+
+    <img src="{% static "images/developer_image.jpg" %}" style="width: 250px; height:250px; border-radius: 100%">
+        <ul>
+            <p style="font-size: 17px; color: white">سلام من سبحان مختاری هستم. حدود سه ساله که برنامه نویسی پایتون میکنم. مدت طولانی در رابطه با جنگو و طراحی سایت کسب مهارت می کردم و بعد از اون به طور سفت و سخت در حوزه هوش مصنوعی و یادگیری ماشین. در این وبسایت از مدل های ماشین لرنینگ و دیپ لرنینگ و CNN ها استفاد شده است.</p>
+
+        </ul>
+    </div>
+
+    <div style="display: flex; position: relative;   width: 1000px; height: 300px; border-radius: 35px; margin: auto; justify-content: center">
+    <p style="font-size: 17px; color: white"> توی این سایت شما میتونید لیستی طولانی از گیاهان خانگی رو در اختیار داشته باشید. نوع و خانواده اونهارو مشاهده کنید. اطلاعاتی مفید درباره ویژگی های این گیاهان بینید و درمورد شرایط نگهداری و بیماری ها و روشهای درمان اونها باد بگیرید.</p><br>
+    <p style="font-size: 17px; color: white">همچنین شما امکان این رو دارید که از گیاه یا محصول کشاورزیتون عکسی آپلود کنید و مشکلش رو ببینید و روش های درمان اون مشکل رو بفهمید. مدل دیگری هم برای شناسایی نوع گیاه خانگی طراحی و در سایت قرار گرفته شده است.برای اطلاعات بیشتر درمورد مدل ها وارد صفحه درباره مدل های تشخیص شوید.  </p>
+    </div>
+    <a href="#" style="display:flex; border-radius: 30px;  height: 40px; width: 300px; align-items: center; justify-content: center; color: white; margin: auto; background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399);border: 1px lightgray solid">درباره مدل های تشخیص</a><br><br>
+
+
+
+        <div style="background: linear-gradient(to right, rgba(43, 48, 52, 0.5), rgba(84, 243, 163, 0.5)), url({% static 'images/house_plant_home.jpg' %}); ">
+        <ul><h1 style="color: white; color: white"> مشاهده لیست گیاهان خانگی</h1><br><br></ul>
+        <p style="font-size: 17px; color:#ffffff">با ورود به این صفحه لیست گیاهان ومجود در سایت و توضیحات مربوط به اونهارو مشاهده کنید.</p><br><br>
+            <a href="{% url 'my_plants:house_plants_names' %}" style="display:flex; border-radius: 30px;  height: 40px; width: 300px; align-items: center; justify-content: center; color: white; margin: auto; background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399);border: 1px lightgray solid">لیست گیاهان خانگی</a><br><br>
+        </div>
+
+    <div><br>
+    <ul><h1 style="color: white; ">
+        با ورود به وبسایت از خدمات بهتر استفاده کنید
+    </h1><br><br>
+        <a href="{% url 'accounts:login' %}" style="display:flex; border-radius: 30px;  height: 40px; width: 300px; align-items: center; justify-content: center; color: white; margin: auto; background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399);border: 1px lightgray solid">ورود</a><br>
+        <a href="{% url 'accounts:register' %}" style="display:flex; border-radius: 30px;  height: 40px; width: 300px; align-items: center; justify-content: center; color: white; margin: auto; background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399); border: 1px lightgray solid">ساخت حساب</a><br><br>
+    </div></ul>
+
+
 {% endblock %}

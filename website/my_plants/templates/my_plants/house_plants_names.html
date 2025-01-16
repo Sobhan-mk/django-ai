@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}house plants names{% endblock %}
+{% block title %}لیست نام گیاهان خانگی{% endblock %}
 {% block body %}
-    <h1 style="color: rgba(41,220,130,0.99)">
-    house plant spieces names
+    <h1 style="color: rgba(255,255,255,0.99)">
+    لیست نام گیاهان خانگی
     </h1>
     <form method="get" action="{% url 'my_plants:house_plants_names' %}">
         {% csrf_token %}
         {{ form.query }}
     </form><br>
         {% for plant in names %}
-            <a href="{% url 'my_plants:plant_detail' plant.id %}">{{ plant.persian_name }}</a><br><br>
-        {% endfor %}
+            <div style="background: linear-gradient(to right, #2B3034FF, rgba(116,119,121,0.79));">
+                <a href="{% url 'my_plants:plant_detail' plant.id %}" style="color: white">{{ plant.persian_name }} : {{ plant.scientific_name }}</a>
+            </div>
+            <div class="flex-container" style="justify-content: flex-end; display: flex">
 
+                <img src="{{ plant.plant_image.url }}" style="width: 100px; border: 1px solid white; border-radius: 10px" >
+            </div><br>
+
+        {% endfor %}
 
 {% endblock %}
