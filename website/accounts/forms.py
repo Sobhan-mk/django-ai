@@ -43,45 +43,13 @@ class UserRegisterForm(forms.Form):
     username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'نام کاربری'}))
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'ایمیل'}))
 
-    password_1 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'رمز عبور'}))
-    password_2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'تکرار رمز عبور'}))
-
-    def clean_username(self):
-        user = self.cleaned_data['username']
-
-        if User.objects.filter(username=user).exists():
-            raise forms.ValidationError('username is already exist.')
-        else:
-            return user
-        
-    def clean_email(self):
-        email = self.cleaned_data['email']
-
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('email is already exist')
-        else:
-            return email
-        
-    def clean_password_2(self):
-        pass_1 = self.cleaned_data['password_1']
-        pass_2 = self.cleaned_data['password_2']
-
-        if pass_1 != pass_2:
-            raise forms.ValidationError('passwords dont match')
-        
-        elif len(pass_2) < 5:
-            raise forms.ValidationError('password is too short')
-        
-        elif not any (i.isupper() for i in pass_2):
-            raise forms.ValidationError('pleas entre an upper alphabet in your password')
-        
-        else:
-            return pass_1
+    password_1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور'}))
+    password_2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'تکرار رمز عبور'}))
 
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'نام کاربری'}))
-    password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'رمز عبور'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور'}))
 
 
 class UserUpdateForm(forms.ModelForm):

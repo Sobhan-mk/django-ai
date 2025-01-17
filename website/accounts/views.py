@@ -8,20 +8,36 @@ from django.contrib.auth import update_session_auth_hash
 
 def register(request):
 
+    error_message = ''
+
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
             data = form.cleaned_data
-            User.objects.create_user(username=data['username'], email=data['email'], password=data['password_2'])
 
-            messages.success(request, 'حساب کاربری شما ساخته شد', 'success')
-            return redirect('home:home')
+            if User.objects.filter(username=data['username']).exists():
+                error_message = 'نام کاربری قبلا ثبت شده است'
+
+            elif User.objects.filter(email=data['email']).exists():
+                error_message = 'ایمیل قبلا ثبت شده است'
+
+            elif data['password_1'] != data['password_2']:
+                error_message = 'رمز عبور طابقت ندارد'
+
+            else:
+
+                User.objects.create_user(username=data['username'], email=data['email'], password=data['password_2'])
+
+                messages.success(request, 'حساب کاربری شما ساخته شد', 'success')
+                return redirect('home:home')
+        else:
+            error_message = 'آدرس ایمیل شما در قالب درستی نیست'
         
     else:
         form = UserRegisterForm()
 
-    context = {'form':form}
+    context = {'form': form, 'error_message' : error_message}
     return render(request, 'accounts/register.html', context)
 
 

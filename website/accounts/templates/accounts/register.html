@@ -12,6 +12,8 @@
         {{ form.password_1}}<br><br>
         {{ form.password_2}}<br><br>
 
+        <p style="color: red">{{ error_message }}</p>
+
         <button type="submit" style="background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399); border-radius: 20px;height: 40px; width: 190px; border: 1px lightgray solid;  color: white">ساخت حساب کاربری</button>
         <a href="{% url 'accounts:login' %}" style="justify-content: center; display: flex; color: white;">ورود</a>
     </form>
