@@ -4,6 +4,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField as ROPHF
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.forms import PasswordChangeForm
 
+
 class UserCreateForm(forms.ModelForm):
     pass_1 = forms.CharField(widget=forms.PasswordInput)
     pass_2 = forms.CharField(widget=forms.PasswordInput)
@@ -95,3 +96,7 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = []
 
 
+class ChangePassword(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs = {'place_holder' : 'رمز عبور قدیمی'}))
+    new_password = forms.CharField(widget=forms.PasswordInput(attrs={'place_holder': 'رمز عبور جدید'}))
+    repeat_password = forms.CharField(widget=forms.PasswordInput(attrs = {'place_holder' : 'تکرار رمز عبور جدید'}))

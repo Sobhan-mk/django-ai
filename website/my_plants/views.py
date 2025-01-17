@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from .forms import SearchPlantNames
 from accounts.models import Profile
 from django.contrib import messages
+from django.db.models import Q
 
 
 def house_plants_names(request):
@@ -12,7 +13,12 @@ def house_plants_names(request):
     query = request.GET.get('query')
 
     if query:
-        plant_names = plant_names.filter(name__icontains=query) | plant_names.filter(persian_name__icontains=query)
+
+        plant_names = list(Plants.objects.filter(
+            Q(name__icontains=query) |
+            Q(persian_name__icontains=query) |
+            Q(scientific_name__icontains=query)
+        ))
 
     return render(request, 'my_plants/house_plants_names.html', {'form': form, 'names': plant_names})
 

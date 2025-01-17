@@ -3,17 +3,20 @@
     register
 {% endblock %}
 {% block body %}
-    <h1 style="color : rgba(41,220,130,0.99)">register</h1>
-    <form method="post" style="border: 2px solid rgba(41,220,130,0.99); padding: 10px; border-radius: 10px; margin: 0; width: 218px;">
+    <h1 style="color : white">ساخت حساب جدید</h1>
+    <div class="container" style="display: flex; justify-content: center; align-items: center">
+        <form method="post" style="border: 1px solid white; padding: 50px; border-radius: 10px; margin: 0; width: 300px; background-color: #595B5DC9; border-radius: 35px">
         {% csrf_token %}
         {{ form.username}}<br><br>
         {{ form.email}}<br><br>
         {{ form.password_1}}<br><br>
         {{ form.password_2}}<br><br>
 
-        <button type="submit" style="background-color: rgba(41,220,130,0.99); border: none; width: 188px; height: 30px; border-radius: 10px; color: white">ساخت حساب کاربری</button>
-        <a href="{% url 'accounts:login' %}" style="justify-content: center; display: flex; color: black;">ورود</a>
+        <button type="submit" style="background: linear-gradient(to bottom right, rgba(90,50,140,0.99), #803399); border-radius: 20px;height: 40px; width: 190px; border: 1px lightgray solid;  color: white">ساخت حساب کاربری</button>
+        <a href="{% url 'accounts:login' %}" style="justify-content: center; display: flex; color: white;">ورود</a>
     </form>
+    </div><br><br><br><br>
+
 
 
 {% endblock %}

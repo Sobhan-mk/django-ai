@@ -24,10 +24,14 @@ def external_qa_page(request):
         question_ids = list(Question.objects.values_list('id', flat=True))
 
     # Randomly sample 10 question IDs
-    random_question_ids = random.sample(question_ids, min(len(question_ids), 10))
+    #random_question_ids = random.sample(question_ids, min(len(question_ids), 10))
+
+    random.shuffle(question_ids)
+
+    question_ids = question_ids[:10]
 
     # Get questions and prefetch related answers
-    questions_with_answers = Question.objects.filter(id__in=random_question_ids).prefetch_related(
+    questions_with_answers = Question.objects.filter(id__in=question_ids).prefetch_related(
         Prefetch('answers', queryset=Answer.objects.all()))
 
     return render(request, 'qa/external_question_page.html', {'questions_with_answers': questions_with_answers, 'search_form' : search_form})
@@ -72,7 +76,7 @@ def edit_question(request, id):
             question.user = request.user
             question.save()
 
-            return redirect('home:home')
+            return redirect('accounts:profile')
 
     else:
         form = QuestionEdit(instance=question)
@@ -108,3 +112,12 @@ def save_answer(request, id):
         form = SaveAnswer()
 
     return render(request, 'qa/save_answer.html', {'form': form})
+
+
+def cpecific_answer(request, id):
+    question = Question.objects.get(id=id)
+    answers = question.answers.all()
+
+    return render(request, 'qa/specific_answers.html', {'answers' : answers, 'question' : question})
+
+

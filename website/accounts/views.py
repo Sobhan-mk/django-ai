@@ -3,7 +3,7 @@ from .forms import *
 from .models import User, Profile
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 def register(request):
@@ -98,16 +98,37 @@ def signout(request):
     messages.success(request, 'شما خارج شدید')
     return redirect('home:home')
 
+
 def change_password(request):
+    error = ''
     if request.method == 'POST':
-        form = PasswordChangeForm(user=request.user, data=request.POST)
+        form = ChangePassword(data=request.POST)
 
         if form.is_valid():
-            form.save()
-            messages.success(request, 'رمز عبور با موفقیت تغییر کرد', 'success')
-            return redirect('home:home')
+            old_password = form.cleaned_data['old_password']
+            new_password = form.cleaned_data['new_password']
+            repeat_password = form.cleaned_data['repeat_password']
+            if request.user.check_password(old_password):
+                if new_password == repeat_password:
+                    request.user.set_password(new_password)
+                    request.user.save()
+
+                    update_session_auth_hash(request, request.user)
+
+                    messages.success(request, 'رمز عبور شما با موفقیت تغییر کرد')
+                    return redirect('accounts:profile')
+
+                else:
+                    error = 'رمز عبور جدید با تکرار آن مطابقت ندارد'
+            else:
+                error = 'رمز عبور قمیمی شما درست نیست'
+
     else:
-        form = PasswordChangeForm(user=request.user)
+        form = ChangePassword()
 
-    return render(request, 'accounts/change_password.html', {'form' : form})
+    context = {
+        'form': form,
+        'error': error
+    }
 
+    return render(request, 'accounts/change_password.html', context)
